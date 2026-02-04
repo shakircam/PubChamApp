@@ -1,0 +1,60 @@
+name: pubchem
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  animations: 2.0.7
+  cached_network_image: 3.3.1
+  cupertino_icons: 1.0.5
+  dio: 5.9.0
+  retrofit: ^4.4.0
+  equatable: 2.0.5
+  flutter_localizations:
+    sdk: flutter
+  flutter_screenutil: 5.9.3
+  flutter_riverpod: ^2.6.1
+  flutter_secure_storage: 10.0.0
+  flutter_svg: 2.0.7
+  get_storage: 2.1.1
+  go_router: 17.0.1
+  intl: ^0.20.2
+  logger: 2.0.1
+  pretty_dio_logger: 1.3.1
+  riverpod_annotation: ^2.6.1
+  sqflite: 2.4.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:
+  flutter_lints: ^2.0.0
+  mockito: ^5.4.4
+  riverpod_generator: ^2.6.2
+  riverpod_lint: ^2.6.1
+  sqflite_common_ffi: ^2.3.2
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - images/
+
+  fonts:
+    - family: English
+      fonts:
+        - asset: fonts/inter/inter-regular.ttf
+          weight: 400
+        - asset: fonts/inter/inter-medium.ttf
+          weight: 500
+        - asset: fonts/inter/inter-semi-bold.ttf
+          weight: 600
+
+

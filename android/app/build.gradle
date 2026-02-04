@@ -1,0 +1,178 @@
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    // throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def loadPropertiesFile(String fileName) {
+    println(fileName)
+    def properties = new Properties()
+    def propertiesFile = rootProject.file(fileName)
+    if (propertiesFile.exists()) {
+        propertiesFile.withReader('UTF-8') { reader ->
+            properties.load(reader)
+        }
+    }
+    return properties
+}
+
+def getCurrentFlavor() {
+
+    String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+
+    Pattern pattern
+    println(tskReqStr)
+    if( tskReqStr.contains( "assemble" ) )
+        pattern = Pattern.compile("assemble(\\w+)(Release|Debug)")
+    else if( tskReqStr.contains("bundle") )
+        pattern = Pattern.compile("bundle(\\w+)(Release|Debug)")
+    else
+        pattern = Pattern.compile("generate(\\w+)(Release|Debug)")
+
+    Matcher matcher = pattern.matcher( tskReqStr )
+
+    if( matcher.find() )
+        return matcher.group(1).toLowerCase()
+    else
+    {
+        println "NO MATCH FOUND"
+        return ""
+    }
+}
+
+
+
+android {
+    namespace "com.example.pubchem"
+    compileSdkVersion flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "com.example.pubchem"
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    lint {
+        checkReleaseBuilds false
+    }
+
+    signingConfigs {
+
+        beta{
+            keyAlias localProperties['keyAliasBeta']
+            keyPassword localProperties['keyPasswordBeta']
+            storeFile localProperties['storeFileBeta'] ? file(localProperties['storeFileBeta']) : null
+            storePassword localProperties['storePasswordBeta']
+        }
+
+        prod {
+            keyAlias localProperties['keyAlias']
+            keyPassword localProperties['keyPassword']
+            storeFile localProperties['storeFile'] ? file(localProperties['storeFile']) : null
+            storePassword localProperties['storePassword']
+        }
+    }
+
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        beta {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            versionCode 1
+            versionName "1.0.0-beta"
+            resValue "string", "app_name", "Flutter Dev"
+            dimension "default"
+            applicationIdSuffix ".dev"
+        }
+
+        prod {
+            versionCode 14
+            versionName "2.0.1"
+            resValue "string", "app_name", "Flutter Prod"
+            dimension "default"
+        }
+    }
+
+}
+
+flutter {
+    source '../..'
+    target "lib/main_" + getCurrentFlavor() + ".dart"
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.20"
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.android.support:multidex:1.0.3'
+
+}
