@@ -1,0 +1,59 @@
+{
+  "@@locale": "en",
+  "moreSettings": "More Settings",
+  "@moreSettings": {
+    "description": "Title for the more settings page"
+  },
+  "appearanceAndPreferences": "APPEARANCE & PREFERENCES",
+  "@appearanceAndPreferences": {
+    "description": "Section title for appearance and preferences"
+  },
+  "darkMode": "Dark Mode",
+  "@darkMode": {
+    "description": "Title for dark mode setting"
+  },
+  "premium": "PREMIUM",
+  "@premium": {
+    "description": "Premium badge text"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Title for language setting"
+  },
+  "englishUS": "English (US)",
+  "@englishUS": {
+    "description": "English language option"
+  },
+  "bengali": "বাংলা (Bengali)",
+  "@bengali": {
+    "description": "Bengali language option"
+  },
+  "securityAndAlerts": "SECURITY & ALERTS",
+  "@securityAndAlerts": {
+    "description": "Section title for security and alerts"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Title for notifications setting"
+  },
+  "privacyAndData": "Privacy & Data",
+  "@privacyAndData": {
+    "description": "Title for privacy and data setting"
+  },
+  "aboutPubChemExplorer": "About PubChem Explorer",
+  "@aboutPubChemExplorer": {
+    "description": "About section title"
+  },
+  "empoweringChemicalIntelligence": "Empowering Chemical Intelligence",
+  "@empoweringChemicalIntelligence": {
+    "description": "App tagline"
+  },
+  "version": "VERSION 1.0.1",
+  "@version": {
+    "description": "App version text"
+  },
+  "selectLanguage": "Select Language",
+  "@selectLanguage": {
+    "description": "Language dialog title"
+  }
+}

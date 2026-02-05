@@ -14,19 +14,20 @@ class ThemeController extends _$ThemeController {
 
   void setTheme(AppTheme theme) {
     state = theme;
-    _saveTheme(theme.toString());
+    _saveTheme(theme);
   }
 
   Future<void> _loadTheme() async {
-    final prefManager = ref.read(prefManagerProvider);
-    // TODO: Load theme from storage
-    // Example: final savedTheme = await prefManager.getTheme();
-    // if (savedTheme != null) state = savedTheme;
+    final getSavedThemeUseCase = ref.read(getSavedThemeUseCaseProvider);
+    final savedTheme = await getSavedThemeUseCase();
+
+    if (savedTheme != null) {
+      state = savedTheme;
+    }
   }
 
-  Future<void> _saveTheme(String value) async {
-    final prefManager = ref.read(prefManagerProvider);
-    // TODO: Save theme to storage
-    // Example: await prefManager.saveTheme(value);
+  Future<void> _saveTheme(AppTheme theme) async {
+    final saveThemeUseCase = ref.read(saveThemeUseCaseProvider);
+    await saveThemeUseCase(theme);
   }
 }

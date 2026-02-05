@@ -1,0 +1,17 @@
+{
+  "@@locale": "bn",
+  "moreSettings": "আরও সেটিংস",
+  "appearanceAndPreferences": "চেহারা এবং পছন্দসমূহ",
+  "darkMode": "ডার্ক মোড",
+  "premium": "প্রিমিয়াম",
+  "language": "ভাষা",
+  "englishUS": "English (US)",
+  "bengali": "বাংলা (Bengali)",
+  "securityAndAlerts": "নিরাপত্তা এবং সতর্কতা",
+  "notifications": "বিজ্ঞপ্তি",
+  "privacyAndData": "গোপনীয়তা এবং ডেটা",
+  "aboutPubChemExplorer": "PubChem Explorer সম্পর্কে",
+  "empoweringChemicalIntelligence": "রাসায়নিক বুদ্ধিমত্তা ক্ষমতায়ন",
+  "version": "সংস্করণ ১.০.১",
+  "selectLanguage": "ভাষা নির্বাচন করুন"
+}
