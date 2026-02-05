@@ -10,3 +10,4 @@ const String sortByUpdatedTime = "date-time";
 const int perPage = 10;
 const theme = "theme";
 const appLanguage = "app_language";
+const searchHistoryKey = "search_history";

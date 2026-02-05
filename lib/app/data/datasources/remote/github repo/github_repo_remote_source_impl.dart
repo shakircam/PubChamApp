@@ -10,6 +10,7 @@ import 'package:dio/dio.dart';
 
 class GitHubRepositoryRemoteSourceImpl extends BaseRemoteSource
     implements GitHubRepositoryRemoteSource {
+
   @override
   Future<RemoteGitHubRepositoryResponse> getRepositoryList(
       GitHubRepositoryParams params) async {

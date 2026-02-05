@@ -55,5 +55,109 @@
   "selectLanguage": "Select Language",
   "@selectLanguage": {
     "description": "Language dialog title"
+  },
+  "pubChemIntelligence": "PubChem Intelligence",
+  "@pubChemIntelligence": {
+    "description": "App name in home screen"
+  },
+  "searchForCompounds": "Search for compounds...",
+  "@searchForCompounds": {
+    "description": "Search bar placeholder"
+  },
+  "searchScreenComingSoon": "Search results will appear here",
+  "@searchScreenComingSoon": {
+    "description": "Placeholder text shown on the search screen"
+  },
+  "searchRecentTitle": "Recent Searches",
+  "@searchRecentTitle": {
+    "description": "Title for recent searches section"
+  },
+  "searchClearHistory": "Clear History",
+  "@searchClearHistory": {
+    "description": "Clear search history button label"
+  },
+  "searchNoRecent": "No recent searches yet",
+  "@searchNoRecent": {
+    "description": "Placeholder when there are no recent searches"
+  },
+  "searchingLabel": "Searching...",
+  "@searchingLabel": {
+    "description": "Search loading label"
+  },
+  "searchEmptyTitle": "No compounds found",
+  "@searchEmptyTitle": {
+    "description": "Empty state title for search results"
+  },
+  "searchEmptySubtitle": "Try a different name.",
+  "@searchEmptySubtitle": {
+    "description": "Empty state subtitle for search results"
+  },
+  "searchErrorTitle": "Something went wrong",
+  "@searchErrorTitle": {
+    "description": "Error state title for search results"
+  },
+  "searchErrorSubtitle": "Please check your connection and try again.",
+  "@searchErrorSubtitle": {
+    "description": "Error state subtitle for search results"
+  },
+  "searchRetry": "Retry",
+  "@searchRetry": {
+    "description": "Retry button label for search errors"
+  },
+  "compoundDetailsTitle": "Compound Details",
+  "@compoundDetailsTitle": {
+    "description": "Title for the compound details screen"
+  },
+  "detailsScreenComingSoon": "Details will appear here soon",
+  "@detailsScreenComingSoon": {
+    "description": "Placeholder text shown on the compound details screen"
+  },
+  "compoundIdLabel": "CID",
+  "@compoundIdLabel": {
+    "description": "Label for compound ID"
+  },
+  "molecularWeightLabel": "MW",
+  "@molecularWeightLabel": {
+    "description": "Label for molecular weight"
+  },
+  "trending": "Trending",
+  "@trending": {
+    "description": "Trending filter chip"
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Favorites filter chip"
+  },
+  "recent": "Recent",
+  "@recent": {
+    "description": "Recent filter chip"
+  },
+  "featuredMolecules": "Featured Molecules",
+  "@featuredMolecules": {
+    "description": "Featured molecules section title"
+  },
+  "curatedChemicalStructures": "Curated chemical structures for study",
+  "@curatedChemicalStructures": {
+    "description": "Featured molecules subtitle"
+  },
+  "latestInsights": "Latest Insights",
+  "@latestInsights": {
+    "description": "Latest insights section title"
+  },
+  "molecularAnalysis": "Molecular Analysis",
+  "@molecularAnalysis": {
+    "description": "Insight item title"
+  },
+  "realtimeBindingAffinity": "Real-time binding affinity predictions",
+  "@realtimeBindingAffinity": {
+    "description": "Molecular analysis subtitle"
+  },
+  "labIntegration": "Lab Integration",
+  "@labIntegration": {
+    "description": "Insight item title"
+  },
+  "syncWithELN": "Sync with ELN laboratory data",
+  "@syncWithELN": {
+    "description": "Lab integration subtitle"
   }
 }

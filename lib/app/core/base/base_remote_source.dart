@@ -16,14 +16,17 @@ abstract class BaseRemoteSource {
     try {
       Response<T> response = await api;
 
-      if (response.statusCode != HttpStatus.ok ||
-          (response.data as Map<String, dynamic>)['statusCode'] !=
-              HttpStatus.ok) {
+      if (response.statusCode != HttpStatus.ok) {
         // TODO
+      } else if (response.data is Map<String, dynamic>) {
+        final data = response.data as Map<String, dynamic>;
+        if (data['statusCode'] != null && data['statusCode'] != HttpStatus.ok) {
+          // TODO
+        }
       }
 
       return response;
-    } on DioError catch (dioError) {
+    } on DioException catch (dioError) {
       Exception exception = handleDioError(dioError);
       // logger.e(
       //     "Throwing error from repository: >>>>>>> $exception : ${(exception as BaseException).message}");

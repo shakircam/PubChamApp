@@ -181,6 +181,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Language'**
   String get selectLanguage;
+
+  /// App name in home screen
+  ///
+  /// In en, this message translates to:
+  /// **'PubChem Intelligence'**
+  String get pubChemIntelligence;
+
+  /// Search bar placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search for compounds...'**
+  String get searchForCompounds;
+
+  /// Placeholder text shown on the search screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search results will appear here'**
+  String get searchScreenComingSoon;
+
+  /// Title for recent searches section
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Searches'**
+  String get searchRecentTitle;
+
+  /// Clear search history button label
+  ///
+  /// In en, this message translates to:
+  /// **'Clear History'**
+  String get searchClearHistory;
+
+  /// Placeholder when there are no recent searches
+  ///
+  /// In en, this message translates to:
+  /// **'No recent searches yet'**
+  String get searchNoRecent;
+
+  /// Search loading label
+  ///
+  /// In en, this message translates to:
+  /// **'Searching...'**
+  String get searchingLabel;
+
+  /// Empty state title for search results
+  ///
+  /// In en, this message translates to:
+  /// **'No compounds found'**
+  String get searchEmptyTitle;
+
+  /// Empty state subtitle for search results
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different name.'**
+  String get searchEmptySubtitle;
+
+  /// Error state title for search results
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get searchErrorTitle;
+
+  /// Error state subtitle for search results
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your connection and try again.'**
+  String get searchErrorSubtitle;
+
+  /// Retry button label for search errors
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get searchRetry;
+
+  /// Title for the compound details screen
+  ///
+  /// In en, this message translates to:
+  /// **'Compound Details'**
+  String get compoundDetailsTitle;
+
+  /// Placeholder text shown on the compound details screen
+  ///
+  /// In en, this message translates to:
+  /// **'Details will appear here soon'**
+  String get detailsScreenComingSoon;
+
+  /// Label for compound ID
+  ///
+  /// In en, this message translates to:
+  /// **'CID'**
+  String get compoundIdLabel;
+
+  /// Label for molecular weight
+  ///
+  /// In en, this message translates to:
+  /// **'MW'**
+  String get molecularWeightLabel;
+
+  /// Trending filter chip
+  ///
+  /// In en, this message translates to:
+  /// **'Trending'**
+  String get trending;
+
+  /// Favorites filter chip
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get favorites;
+
+  /// Recent filter chip
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get recent;
+
+  /// Featured molecules section title
+  ///
+  /// In en, this message translates to:
+  /// **'Featured Molecules'**
+  String get featuredMolecules;
+
+  /// Featured molecules subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Curated chemical structures for study'**
+  String get curatedChemicalStructures;
+
+  /// Latest insights section title
+  ///
+  /// In en, this message translates to:
+  /// **'Latest Insights'**
+  String get latestInsights;
+
+  /// Insight item title
+  ///
+  /// In en, this message translates to:
+  /// **'Molecular Analysis'**
+  String get molecularAnalysis;
+
+  /// Molecular analysis subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Real-time binding affinity predictions'**
+  String get realtimeBindingAffinity;
+
+  /// Insight item title
+  ///
+  /// In en, this message translates to:
+  /// **'Lab Integration'**
+  String get labIntegration;
+
+  /// Lab integration subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Sync with ELN laboratory data'**
+  String get syncWithELN;
 }
 
 class _AppLocalizationsDelegate

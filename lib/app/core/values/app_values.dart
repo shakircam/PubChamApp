@@ -9,6 +9,7 @@ abstract class AppValues {
   static const double maxButtonWidth = 496;
   static const double fontSize_10 = 10;
   static const double fontSize_12 = 12;
+  static const double fontSize_13 = 13;
   static const double fontSize_14 = 14;
   static const double fontSize_15 = 15;
   static const double fontSize_16 = 16;
@@ -43,6 +44,7 @@ abstract class AppValues {
   static const double iconSize_32 = 32;
   static const double iconSize_36 = 36;
   static const double iconSize_40 = 40;
+  static const double iconSize_48 = 48;
   static const double iconSize_50 = 50;
   static const double iconSize_60 = 60;
   static const double iconSize_75 = 75;
@@ -95,12 +97,22 @@ abstract class AppValues {
   static const double padding_8 = 8;
   static const double padding_zero = 0;
   static const double radius = 16;
+  static const double radius_12 = 12;
   static const double radius_4 = 4;
   static const double radius_5 = 5;
   static const double radius_8 = 8;
+  static const double radius_20 = 20;
   static const double smallRadius = 8;
   static const double smallPadding = 10;
   static const double extraLargeMargin = 36;
+  static const int searchDebounceMs = 400;
+  static const int searchHistoryLimit = 5;
+  static const double cardShadowOpacity = 0.05;
+  static const double iconBackgroundOpacity = 0.15;
+  static const double borderInactiveOpacity = 0.3;
+  static const double compoundGridAspectRatio = 0.85;
+  static const double bottomNavSpacerHeight = 100;
+  static const int compoundGridColumns = 2;
 
   static Widget sizedBoxShrink = const SizedBox.shrink();
   static double tabBarHeight = 32.0;

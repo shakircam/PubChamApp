@@ -12,7 +12,7 @@ import 'flavors/environment.dart';
 void main() async {
   EnvConfig devConfig = EnvConfig(
     appName: "Flutter Prod",
-    baseUrl: "https://api.github.com/",
+    baseUrl: "https://pubchem.ncbi.nlm.nih.gov/rest/pug/",
     shouldCollectCrashLog: true,
   );
 

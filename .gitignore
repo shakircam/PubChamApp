@@ -63,3 +63,24 @@ devtools_options.yaml
 # Android signing
 *.keystore
 android/key.properties
+
+# iOS specific
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+
+# macOS specific
+**/macos/Pods/
+**/macos/Flutter/ephemeral/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Firebase config (uncomment if sensitive)
+# google-services.json
+# GoogleService-Info.plist
+
+Checklist.md
+Features.md

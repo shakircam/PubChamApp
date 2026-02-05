@@ -50,4 +50,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectLanguage => 'Select Language';
+
+  @override
+  String get pubChemIntelligence => 'PubChem Intelligence';
+
+  @override
+  String get searchForCompounds => 'Search for compounds...';
+
+  @override
+  String get searchScreenComingSoon => 'Search results will appear here';
+
+  @override
+  String get searchRecentTitle => 'Recent Searches';
+
+  @override
+  String get searchClearHistory => 'Clear History';
+
+  @override
+  String get searchNoRecent => 'No recent searches yet';
+
+  @override
+  String get searchingLabel => 'Searching...';
+
+  @override
+  String get searchEmptyTitle => 'No compounds found';
+
+  @override
+  String get searchEmptySubtitle => 'Try a different name.';
+
+  @override
+  String get searchErrorTitle => 'Something went wrong';
+
+  @override
+  String get searchErrorSubtitle =>
+      'Please check your connection and try again.';
+
+  @override
+  String get searchRetry => 'Retry';
+
+  @override
+  String get compoundDetailsTitle => 'Compound Details';
+
+  @override
+  String get detailsScreenComingSoon => 'Details will appear here soon';
+
+  @override
+  String get compoundIdLabel => 'CID';
+
+  @override
+  String get molecularWeightLabel => 'MW';
+
+  @override
+  String get trending => 'Trending';
+
+  @override
+  String get favorites => 'Favorites';
+
+  @override
+  String get recent => 'Recent';
+
+  @override
+  String get featuredMolecules => 'Featured Molecules';
+
+  @override
+  String get curatedChemicalStructures =>
+      'Curated chemical structures for study';
+
+  @override
+  String get latestInsights => 'Latest Insights';
+
+  @override
+  String get molecularAnalysis => 'Molecular Analysis';
+
+  @override
+  String get realtimeBindingAffinity =>
+      'Real-time binding affinity predictions';
+
+  @override
+  String get labIntegration => 'Lab Integration';
+
+  @override
+  String get syncWithELN => 'Sync with ELN laboratory data';
 }
