@@ -308,6 +308,18 @@ abstract class AppLocalizations {
   /// **'Curated chemical structures for study'**
   String get curatedChemicalStructures;
 
+  /// See all button text
+  ///
+  /// In en, this message translates to:
+  /// **'See All'**
+  String get seeAll;
+
+  /// End of list message
+  ///
+  /// In en, this message translates to:
+  /// **'No more items'**
+  String get noMoreItems;
+
   /// Latest insights section title
   ///
   /// In en, this message translates to:
@@ -337,6 +349,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sync with ELN laboratory data'**
   String get syncWithELN;
+
+  /// 2D structure section title
+  ///
+  /// In en, this message translates to:
+  /// **'2D Structure'**
+  String get details2DStructure;
+
+  /// Scientific representation subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific Representation'**
+  String get detailsScientificRepresentation;
+
+  /// Verified badge text
+  ///
+  /// In en, this message translates to:
+  /// **'VERIFIED'**
+  String get detailsVerified;
+
+  /// Interactive button text
+  ///
+  /// In en, this message translates to:
+  /// **'Interactive'**
+  String get detailsInteractive;
+
+  /// Chemical properties section title
+  ///
+  /// In en, this message translates to:
+  /// **'Chemical Properties'**
+  String get detailsChemicalProperties;
+
+  /// Molecular formula label
+  ///
+  /// In en, this message translates to:
+  /// **'MOLECULAR FORMULA'**
+  String get detailsMolecularFormula;
+
+  /// Molecular weight label
+  ///
+  /// In en, this message translates to:
+  /// **'MOLECULAR WEIGHT'**
+  String get detailsMolecularWeight;
+
+  /// IUPAC name label
+  ///
+  /// In en, this message translates to:
+  /// **'IUPAC NAME'**
+  String get detailsIupacName;
+
+  /// Solubility label (XLogP)
+  ///
+  /// In en, this message translates to:
+  /// **'SOLUBILITY AA'**
+  String get detailsSolubility;
+
+  /// TPSA label
+  ///
+  /// In en, this message translates to:
+  /// **'TPSA'**
+  String get detailsTpsa;
+
+  /// Description section title
+  ///
+  /// In en, this message translates to:
+  /// **'DESCRIPTION'**
+  String get detailsDescription;
+
+  /// Physical properties section title
+  ///
+  /// In en, this message translates to:
+  /// **'PHYSICAL PROPERTIES'**
+  String get detailsPhysicalProperties;
+
+  /// Add to collection button text
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Collection'**
+  String get detailsAddToCollection;
+
+  /// Error loading details message
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading compound details'**
+  String get detailsLoadingError;
+
+  /// No data available message
+  ///
+  /// In en, this message translates to:
+  /// **'No compound data available'**
+  String get detailsNoData;
+
+  /// Not available placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get detailsNotAvailable;
 }
 
 class _AppLocalizationsDelegate

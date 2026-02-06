@@ -3,6 +3,8 @@ import 'package:retrofit/retrofit.dart';
 import 'package:pubchem/app/core/values/api_end_points.dart';
 import 'model/pubchem_cid_response.dart';
 import 'model/pubchem_property_response.dart';
+import 'model/pubchem_compound_details_response.dart';
+import 'model/pubchem_description_response.dart';
 
 part 'pubchem_api_client.g.dart';
 
@@ -18,5 +20,15 @@ abstract class PubChemApiClient {
   @GET(ApiEndPoints.compoundCidsByName)
   Future<HttpResponse<PubChemCidResponse>> getCompoundCids(
     @Path('name') String name,
+  );
+
+  @GET(ApiEndPoints.compoundDetailsByCid)
+  Future<HttpResponse<PubChemCompoundDetailsResponse>> getCompoundDetailsByCid(
+    @Path('cid') int cid,
+  );
+
+  @GET(ApiEndPoints.compoundDescriptionByCid)
+  Future<HttpResponse<PubChemDescriptionResponse>> getCompoundDescription(
+    @Path('cid') int cid,
   );
 }

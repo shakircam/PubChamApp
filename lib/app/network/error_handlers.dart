@@ -37,7 +37,7 @@ Exception handleDioError(DioError dioError) {
 
 }
 
-Exception _parseDioErrorResponse(DioError dioError) {
+Exception _parseDioErrorResponse(DioException dioError) {
   //final logger = BuildConfig.instance.config.logger;
 
   int statusCode = dioError.response?.statusCode ?? -1;
@@ -48,8 +48,26 @@ Exception _parseDioErrorResponse(DioError dioError) {
     if (statusCode == -1 || statusCode == HttpStatus.ok) {
       statusCode = dioError.response?.data["statusCode"];
     }
-    status = dioError.response?.data["status"];
-    serverMessage = dioError.response?.data["message"];
+
+    // Check for PubChem API error format (Fault)
+    if (dioError.response?.data is Map &&
+        dioError.response?.data["Fault"] != null) {
+      final fault = dioError.response?.data["Fault"];
+      status = fault["Code"]?.toString();
+      serverMessage = fault["Message"]?.toString();
+
+      // Get details if available
+      if (fault["Details"] != null && fault["Details"] is List) {
+        final details = fault["Details"] as List;
+        if (details.isNotEmpty) {
+          serverMessage = details.first.toString();
+        }
+      }
+    } else {
+      // Standard API error format
+      status = dioError.response?.data["status"];
+      serverMessage = dioError.response?.data["message"];
+    }
   } catch (e) {
     //logger.i("$e");
     // logger.i(s.toString());
@@ -61,11 +79,12 @@ Exception _parseDioErrorResponse(DioError dioError) {
     case HttpStatus.serviceUnavailable:
       return ServiceUnavailableException("Service Temporarily Unavailable");
     case HttpStatus.notFound:
-      return NotFoundException(serverMessage ?? "", status ?? "");
+      return NotFoundException(
+          serverMessage ?? "Resource not found", status ?? "");
     default:
       return ApiException(
           httpCode: statusCode,
           status: status ?? "",
-          message: serverMessage ?? "");
+          message: serverMessage ?? "Something went wrong. Please try again later.");
   }
 }

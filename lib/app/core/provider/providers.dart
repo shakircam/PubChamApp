@@ -2,15 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:pubchem/app/data/datasources/local/db/database_helper.dart';
 import 'package:pubchem/app/data/datasources/local/preference/pref_manager.dart';
 import 'package:pubchem/app/data/datasources/local/preference/pref_manager_impl.dart';
-import 'package:pubchem/app/data/datasources/remote/github%20repo/github_repo_remote_source.dart';
-import 'package:pubchem/app/data/datasources/remote/github%20repo/github_repo_remote_source_impl.dart';
 import 'package:pubchem/app/data/datasources/remote/pubchem/pubchem_api_client.dart';
 import 'package:pubchem/app/data/datasources/remote/pubchem/pubchem_remote_source.dart';
 import 'package:pubchem/app/data/datasources/remote/pubchem/pubchem_remote_source_impl.dart';
 import 'package:pubchem/app/data/repositories/compound_search_repository_impl.dart';
+import 'package:pubchem/app/data/repositories/compound_details_repository_impl.dart';
 import 'package:pubchem/app/data/repositories/locale_repository_impl.dart';
 import 'package:pubchem/app/data/repositories/theme_repository_impl.dart';
 import 'package:pubchem/app/domain/repositories/compound_search_repository.dart';
+import 'package:pubchem/app/domain/repositories/compound_details_repository.dart';
 import 'package:pubchem/app/domain/repositories/locale_repository.dart';
 import 'package:pubchem/app/domain/repositories/theme_repository.dart';
 import 'package:pubchem/app/domain/usecases/locale/get_saved_locale_usecase.dart';
@@ -21,6 +21,7 @@ import 'package:pubchem/app/domain/usecases/search/clear_recent_searches_usecase
 import 'package:pubchem/app/domain/usecases/search/get_recent_searches_usecase.dart';
 import 'package:pubchem/app/domain/usecases/search/save_recent_search_usecase.dart';
 import 'package:pubchem/app/domain/usecases/search/search_compounds_usecase.dart';
+import 'package:pubchem/app/domain/usecases/compound_details/get_compound_details_use_case.dart';
 import 'package:pubchem/app/core/values/api_end_points.dart';
 import 'package:pubchem/app/network/dio_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -45,12 +46,6 @@ DatabaseHelper databaseHelper(DatabaseHelperRef ref) {
 @Riverpod(keepAlive: true)
 PrefManager prefManager(PrefManagerRef ref) {
   return PrefManagerImpl();
-}
-
-/// Provides GitHub remote data source
-@Riverpod(keepAlive: true)
-GitHubRepositoryRemoteSource githubRemoteSource(GithubRemoteSourceRef ref) {
-  return GitHubRepositoryRemoteSourceImpl();
 }
 
 /// Provides PubChem Retrofit API client
@@ -93,6 +88,14 @@ LocaleRepository localeRepository(LocaleRepositoryRef ref) {
 ThemeRepository themeRepository(ThemeRepositoryRef ref) {
   final prefManager = ref.read(prefManagerProvider);
   return ThemeRepositoryImpl(prefManager);
+}
+
+/// Provides compound details repository
+@Riverpod(keepAlive: true)
+CompoundDetailsRepository compoundDetailsRepository(
+    CompoundDetailsRepositoryRef ref) {
+  final remoteSource = ref.read(pubChemRemoteSourceProvider);
+  return CompoundDetailsRepositoryImpl(remoteSource: remoteSource);
 }
 
 // USE CASE PROVIDERS
@@ -154,4 +157,12 @@ ClearRecentSearchesUseCase clearRecentSearchesUseCase(
     ClearRecentSearchesUseCaseRef ref) {
   final repository = ref.read(compoundSearchRepositoryProvider);
   return ClearRecentSearchesUseCase(repository);
+}
+
+/// Provides get compound details use case
+@riverpod
+GetCompoundDetailsUseCase getCompoundDetailsUseCase(
+    GetCompoundDetailsUseCaseRef ref) {
+  final repository = ref.read(compoundDetailsRepositoryProvider);
+  return GetCompoundDetailsUseCase(repository: repository);
 }

@@ -8,6 +8,7 @@ abstract class AppValues {
   static const double maxButtonHeight = 38;
   static const double maxButtonWidth = 496;
   static const double fontSize_10 = 10;
+  static const double fontSize_11 = 11;
   static const double fontSize_12 = 12;
   static const double fontSize_13 = 13;
   static const double fontSize_14 = 14;
@@ -73,6 +74,7 @@ abstract class AppValues {
   static const double margin_26 = 26;
   static const double margin_2 = 2;
   static const double margin_20 = 20;
+  static const double margin_24 = 24;
   static const double margin_30 = 30;
   static const double margin_32 = 32;
   static const double margin_3 = 4;

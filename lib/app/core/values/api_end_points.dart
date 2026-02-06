@@ -6,4 +6,8 @@ abstract class ApiEndPoints {
       "MolecularFormula,MolecularWeight,IUPACName,CanonicalSMILES/JSON";
   static const String compoundCidsByName = "compound/name/{name}/cids/JSON";
   static const String compoundStructureImageByCid = "compound/cid/{cid}/record/PNG";
+  static const String compoundDetailsByCid =
+      "compound/cid/{cid}/property/"
+      "MolecularFormula,MolecularWeight,IUPACName,CanonicalSMILES,XLogP,TPSA/JSON";
+  static const String compoundDescriptionByCid = "compound/cid/{cid}/description/JSON";
 }

@@ -17,7 +17,8 @@ class HomeFilterChips extends ConsumerWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final selectedFilter = ref.watch(homeFilterProvider);
 
-    return Padding(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: AppValues.margin_16),
       child: Row(
         children: [

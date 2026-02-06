@@ -117,6 +117,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Curated chemical structures for study';
 
   @override
+  String get seeAll => 'See All';
+
+  @override
+  String get noMoreItems => 'No more items';
+
+  @override
   String get latestInsights => 'Latest Insights';
 
   @override
@@ -131,4 +137,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get syncWithELN => 'Sync with ELN laboratory data';
+
+  @override
+  String get details2DStructure => '2D Structure';
+
+  @override
+  String get detailsScientificRepresentation => 'Scientific Representation';
+
+  @override
+  String get detailsVerified => 'VERIFIED';
+
+  @override
+  String get detailsInteractive => 'Interactive';
+
+  @override
+  String get detailsChemicalProperties => 'Chemical Properties';
+
+  @override
+  String get detailsMolecularFormula => 'MOLECULAR FORMULA';
+
+  @override
+  String get detailsMolecularWeight => 'MOLECULAR WEIGHT';
+
+  @override
+  String get detailsIupacName => 'IUPAC NAME';
+
+  @override
+  String get detailsSolubility => 'SOLUBILITY AA';
+
+  @override
+  String get detailsTpsa => 'TPSA';
+
+  @override
+  String get detailsDescription => 'DESCRIPTION';
+
+  @override
+  String get detailsPhysicalProperties => 'PHYSICAL PROPERTIES';
+
+  @override
+  String get detailsAddToCollection => 'Add to Collection';
+
+  @override
+  String get detailsLoadingError => 'Error loading compound details';
+
+  @override
+  String get detailsNoData => 'No compound data available';
+
+  @override
+  String get detailsNotAvailable => 'Not available';
 }

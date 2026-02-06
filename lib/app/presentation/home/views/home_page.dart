@@ -17,21 +17,21 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
-      body: SafeArea(
+      body: const SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomeAppBar(),
-              const SizedBox(height: AppValues.margin_16),
-              const HomeSearchBar(),
-              const SizedBox(height: AppValues.margin_16),
-              const HomeFilterChips(),
-              const SizedBox(height: AppValues.largeMargin),
-              const FeaturedMoleculesSection(),
-              const SizedBox(height: AppValues.margin_32),
-              const LatestInsightsSection(),
-              const SizedBox(height: AppValues.bottomNavSpacerHeight),
+              HomeAppBar(),
+              SizedBox(height: AppValues.margin_16),
+              HomeSearchBar(),
+              SizedBox(height: AppValues.margin_16),
+              HomeFilterChips(),
+              SizedBox(height: AppValues.largeMargin),
+              FeaturedMoleculesSection(),
+              SizedBox(height: AppValues.margin_32),
+              LatestInsightsSection(),
+              SizedBox(height: AppValues.bottomNavSpacerHeight),
             ],
           ),
         ),

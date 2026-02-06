@@ -140,6 +140,14 @@
   "@curatedChemicalStructures": {
     "description": "Featured molecules subtitle"
   },
+  "seeAll": "See All",
+  "@seeAll": {
+    "description": "See all button text"
+  },
+  "noMoreItems": "No more items",
+  "@noMoreItems": {
+    "description": "End of list message"
+  },
   "latestInsights": "Latest Insights",
   "@latestInsights": {
     "description": "Latest insights section title"
@@ -159,5 +167,69 @@
   "syncWithELN": "Sync with ELN laboratory data",
   "@syncWithELN": {
     "description": "Lab integration subtitle"
+  },
+  "details2DStructure": "2D Structure",
+  "@details2DStructure": {
+    "description": "2D structure section title"
+  },
+  "detailsScientificRepresentation": "Scientific Representation",
+  "@detailsScientificRepresentation": {
+    "description": "Scientific representation subtitle"
+  },
+  "detailsVerified": "VERIFIED",
+  "@detailsVerified": {
+    "description": "Verified badge text"
+  },
+  "detailsInteractive": "Interactive",
+  "@detailsInteractive": {
+    "description": "Interactive button text"
+  },
+  "detailsChemicalProperties": "Chemical Properties",
+  "@detailsChemicalProperties": {
+    "description": "Chemical properties section title"
+  },
+  "detailsMolecularFormula": "MOLECULAR FORMULA",
+  "@detailsMolecularFormula": {
+    "description": "Molecular formula label"
+  },
+  "detailsMolecularWeight": "MOLECULAR WEIGHT",
+  "@detailsMolecularWeight": {
+    "description": "Molecular weight label"
+  },
+  "detailsIupacName": "IUPAC NAME",
+  "@detailsIupacName": {
+    "description": "IUPAC name label"
+  },
+  "detailsSolubility": "SOLUBILITY AA",
+  "@detailsSolubility": {
+    "description": "Solubility label (XLogP)"
+  },
+  "detailsTpsa": "TPSA",
+  "@detailsTpsa": {
+    "description": "TPSA label"
+  },
+  "detailsDescription": "DESCRIPTION",
+  "@detailsDescription": {
+    "description": "Description section title"
+  },
+  "detailsPhysicalProperties": "PHYSICAL PROPERTIES",
+  "@detailsPhysicalProperties": {
+    "description": "Physical properties section title"
+  },
+  "detailsAddToCollection": "Add to Collection",
+  "@detailsAddToCollection": {
+    "description": "Add to collection button text"
+  },
+  "detailsLoadingError": "Error loading compound details",
+  "@detailsLoadingError": {
+    "description": "Error loading details message"
+  },
+  "detailsNoData": "No compound data available",
+  "@detailsNoData": {
+    "description": "No data available message"
+  },
+  "detailsNotAvailable": "Not available",
+  "@detailsNotAvailable": {
+    "description": "Not available placeholder"
   }
 }

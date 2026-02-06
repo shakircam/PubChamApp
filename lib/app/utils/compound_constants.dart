@@ -18,7 +18,6 @@ const List<Compound> allCompounds = [
     formula: 'C9H8O4',
     isFeatured: true,
     isTrending: true,
-    isInverted: true, // Dark card style
   ),
   Compound(
     name: 'Dopamine',

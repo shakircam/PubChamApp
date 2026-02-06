@@ -116,6 +116,12 @@ class AppLocalizationsBn extends AppLocalizations {
       'অধ্যয়নের জন্য নির্বাচিত রাসায়নিক কাঠামো';
 
   @override
+  String get seeAll => 'সবগুলো দেখুন';
+
+  @override
+  String get noMoreItems => 'আর কোন আইটেম নেই';
+
+  @override
   String get latestInsights => 'সর্বশেষ অন্তর্দৃষ্টি';
 
   @override
@@ -130,4 +136,52 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get syncWithELN => 'ELN ল্যাবরেটরি ডেটার সাথে সিঙ্ক করুন';
+
+  @override
+  String get details2DStructure => '২ডি কাঠামো';
+
+  @override
+  String get detailsScientificRepresentation => 'বৈজ্ঞানিক উপস্থাপনা';
+
+  @override
+  String get detailsVerified => 'যাচাইকৃত';
+
+  @override
+  String get detailsInteractive => 'ইন্টারঅ্যাক্টিভ';
+
+  @override
+  String get detailsChemicalProperties => 'রাসায়নিক বৈশিষ্ট্য';
+
+  @override
+  String get detailsMolecularFormula => 'আণবিক সূত্র';
+
+  @override
+  String get detailsMolecularWeight => 'আণবিক ওজন';
+
+  @override
+  String get detailsIupacName => 'আইইউপিএসি নাম';
+
+  @override
+  String get detailsSolubility => 'দ্রবণীয়তা AA';
+
+  @override
+  String get detailsTpsa => 'TPSA';
+
+  @override
+  String get detailsDescription => 'বিবরণ';
+
+  @override
+  String get detailsPhysicalProperties => 'ভৌত বৈশিষ্ট্য';
+
+  @override
+  String get detailsAddToCollection => 'সংগ্রহে যোগ করুন';
+
+  @override
+  String get detailsLoadingError => 'যৌগ বিবরণ লোড করতে ত্রুটি';
+
+  @override
+  String get detailsNoData => 'কোন যৌগ ডেটা উপলব্ধ নেই';
+
+  @override
+  String get detailsNotAvailable => 'উপলব্ধ নেই';
 }

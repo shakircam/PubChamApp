@@ -7,6 +7,8 @@ import 'package:pubchem/app/domain/models/compound.dart';
 import 'package:pubchem/app/utils/compound_constants.dart';
 import 'package:pubchem/l10n/app_localizations.dart';
 
+import 'compound_card.dart';
+
 class FeaturedMoleculesSection extends StatelessWidget {
   const FeaturedMoleculesSection({super.key});
 
@@ -21,22 +23,43 @@ class FeaturedMoleculesSection extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppValues.margin_16),
-          child: Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                AppLocalizations.of(context)!.featuredMolecules,
-                style: titleStyle.copyWith(
-                  fontSize: AppValues.fontSize_20,
-                  fontWeight: FontWeight.w700,
-                  color: isDark ? AppColors.darkTextPrimary : AppColors.primary,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.featuredMolecules,
+                      style: titleStyle.copyWith(
+                        fontSize: AppValues.fontSize_20,
+                        fontWeight: FontWeight.w700,
+                        color: isDark ? AppColors.darkTextPrimary : AppColors.primary,
+                      ),
+                    ),
+                    const SizedBox(height: AppValues.margin_4),
+                    Text(
+                      AppLocalizations.of(context)!.curatedChemicalStructures,
+                      style: subtitleStyle.copyWith(
+                        color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: AppValues.margin_4),
-              Text(
-                AppLocalizations.of(context)!.curatedChemicalStructures,
-                style: subtitleStyle.copyWith(
-                  color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+              GestureDetector(
+                onTap: () {
+                  context.push('/featured-compounds');
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.seeAll,
+                  style: titleStyle.copyWith(
+                    fontSize: AppValues.fontSize_14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
             ],
@@ -66,92 +89,4 @@ class FeaturedMoleculesSection extends StatelessWidget {
   }
 }
 
-class CompoundCard extends StatelessWidget {
-  const CompoundCard({super.key, required this.compound});
 
-  final Compound compound;
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final isInverted = compound.isInverted;
-    final cardBgColor = isInverted
-        ? (isDark ? AppColors.lightBackground : AppColors.darkBackground)
-        : (isDark ? AppColors.darkCardBackground : Colors.white);
-    final textColor = isInverted
-        ? (isDark ? AppColors.lightTextPrimary : AppColors.darkTextPrimary)
-        : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary);
-    final subTextColor = isInverted
-        ? (isDark ? AppColors.lightTextSecondary : AppColors.darkTextSecondary)
-        : AppColors.primary;
-    final titleStyle = isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
-    final subtitleStyle = isDark ? AppTextStyles.bodySmallDark : AppTextStyles.bodySmallLight;
-
-    return GestureDetector(
-      onTap: () {
-        context.push('/details', extra: compound);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: cardBgColor,
-          borderRadius: BorderRadius.circular(AppValues.radius),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(AppValues.cardShadowOpacity),
-              blurRadius: AppValues.margin_8,
-              offset: const Offset(AppValues.margin_zero, AppValues.margin_2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(AppValues.margin_12),
-                decoration: BoxDecoration(
-                  color: isInverted
-                      ? (isDark ? AppColors.lightBackground : AppColors.darkBackground)
-                      : (isDark ? AppColors.darkSurface : AppColors.lightSurface),
-                  borderRadius: BorderRadius.circular(AppValues.radius_12),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.science_outlined,
-                    size: AppValues.iconSize_40,
-                    color: isInverted
-                        ? (isDark ? AppColors.lightTextPrimary : AppColors.darkTextPrimary)
-                        : (isDark ? Colors.white24 : Colors.black26),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(AppValues.padding_12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    compound.name,
-                    style: titleStyle.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: textColor,
-                    ),
-                  ),
-                  const SizedBox(height: AppValues.margin_4),
-                  Text(
-                    '${AppLocalizations.of(context)!.molecularWeightLabel}: ${compound.molecularWeight}',
-                    style: subtitleStyle.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: subTextColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
