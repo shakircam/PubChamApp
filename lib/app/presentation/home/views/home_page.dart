@@ -7,13 +7,14 @@ import 'package:pubchem/app/presentation/home/widgets/home_app_bar.dart';
 import 'package:pubchem/app/presentation/home/widgets/home_filter_chips.dart';
 import 'package:pubchem/app/presentation/home/widgets/home_search_bar.dart';
 import 'package:pubchem/app/presentation/home/widgets/latest_insights_section.dart';
+import 'package:pubchem/app/utils/context_ext.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,

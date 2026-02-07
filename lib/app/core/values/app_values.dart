@@ -114,9 +114,91 @@ abstract class AppValues {
   static const double borderInactiveOpacity = 0.3;
   static const double compoundGridAspectRatio = 0.85;
   static const double bottomNavSpacerHeight = 100;
+
+  // Responsive breakpoints
+  static const double tabletBreakpoint = 600;
+  static const double desktopBreakpoint = 1200;
+
+  // Deprecated: Use getResponsiveGridColumns() instead
+  @Deprecated('Use getResponsiveGridColumns(context) for responsive layouts')
   static const int compoundGridColumns = 2;
 
-  static Widget sizedBoxShrink = const SizedBox.shrink();
-  static double tabBarHeight = 32.0;
-  static double singleTitleCartItemHeight = 60;
+  static const Widget sizedBoxShrink = SizedBox.shrink();
+  static const double tabBarHeight = 32.0;
+  static const double singleTitleCartItemHeight = 60;
+
+  /// Returns the number of grid columns based on screen width
+  /// - Phone (< 600): 2 columns
+  /// - Tablet (600-1199): 3 columns
+  /// - Desktop (>= 1200): 4 columns
+  static int getResponsiveGridColumns(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
+    if (width >= desktopBreakpoint) {
+      return 4; // Desktop
+    } else if (width >= tabletBreakpoint) {
+      return 3; // Tablet
+    } else {
+      return 2; // Phone
+    }
+  }
+
+  /// Returns responsive cross axis spacing for grid layouts
+  static double getResponsiveGridSpacing(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
+    if (width >= desktopBreakpoint) {
+      return margin_16; // Desktop - more spacing
+    } else if (width >= tabletBreakpoint) {
+      return margin_12; // Tablet - medium spacing
+    } else {
+      return margin_12; // Phone - compact spacing
+    }
+  }
+
+  /// Returns responsive height based on percentage of screen height
+  /// [percentage] - Percentage of screen height (0.0 to 1.0)
+  /// [minHeight] - Minimum height constraint
+  /// [maxHeight] - Maximum height constraint
+  static double getResponsiveHeight(
+    BuildContext context, {
+    required double percentage,
+    double? minHeight,
+    double? maxHeight,
+  }) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    double height = screenHeight * percentage;
+
+    if (minHeight != null && height < minHeight) {
+      height = minHeight;
+    }
+    if (maxHeight != null && height > maxHeight) {
+      height = maxHeight;
+    }
+
+    return height;
+  }
+
+  /// Returns responsive width based on percentage of screen width
+  /// [percentage] - Percentage of screen width (0.0 to 1.0)
+  /// [minWidth] - Minimum width constraint
+  /// [maxWidth] - Maximum width constraint
+  static double getResponsiveWidth(
+    BuildContext context, {
+    required double percentage,
+    double? minWidth,
+    double? maxWidth,
+  }) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double width = screenWidth * percentage;
+
+    if (minWidth != null && width < minWidth) {
+      width = minWidth;
+    }
+    if (maxWidth != null && width > maxWidth) {
+      width = maxWidth;
+    }
+
+    return width;
+  }
 }

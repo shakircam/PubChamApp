@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pubchem/app/core/values/app_colors.dart';
 import 'package:pubchem/app/core/values/app_text_styles.dart';
 import 'package:pubchem/app/core/values/app_values.dart';
+import 'package:pubchem/app/utils/context_ext.dart';
 import 'package:pubchem/l10n/app_localizations.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -9,7 +10,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
     final titleStyle = isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
 
     return Padding(

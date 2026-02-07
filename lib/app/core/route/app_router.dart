@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pubchem/app/core/widget/error/error_screen.dart';
 import 'package:pubchem/app/domain/models/compound.dart';
 import 'package:pubchem/app/presentation/details/views/details_screen.dart';
 import 'package:pubchem/app/presentation/home/views/featured_compounds_page.dart';
@@ -57,8 +58,12 @@ class AppRouter {
           }
 
           if (cid == null) {
-            // Fallback - shouldn't happen in normal flow
-            return const SizedBox.shrink();
+            // Show error screen when CID is not provided
+            return ErrorScreen(
+              title: 'Invalid Compound',
+              message: 'The compound information could not be loaded. Please try again.',
+              onRetry: () => context.go('/home'),
+            );
           }
 
           return DetailsScreen(cid: cid);

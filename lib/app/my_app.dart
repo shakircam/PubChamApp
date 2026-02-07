@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pubchem/app/presentation/more/controllers/locale_controller.dart';
 import 'package:pubchem/app/presentation/more/controllers/theme_controller.dart';
+import 'package:pubchem/app/utils/context_ext.dart';
 import 'package:pubchem/l10n/app_localizations.dart';
 import 'core/base/app_theme.dart';
 import 'core/base/app_theme_data.dart';
@@ -64,8 +65,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   ThemeData _getThemeSameAsSystem() {
-    bool isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    bool isDarkMode = context.isDarkMode;
 
     return isDarkMode
         ? AppThemeData.getDarkTheme()

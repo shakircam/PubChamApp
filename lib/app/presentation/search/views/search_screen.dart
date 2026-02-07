@@ -9,6 +9,8 @@ import 'package:pubchem/app/core/values/app_values.dart';
 import 'package:pubchem/app/domain/models/compound_search_result.dart';
 import 'package:pubchem/app/presentation/search/controllers/search_controller.dart'
     as search;
+import 'package:pubchem/app/presentation/search/models/search_state.dart'
+    as search;
 import 'package:pubchem/l10n/app_localizations.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
@@ -25,9 +27,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    // Auto-focus search field when screen opens
+    // Auto-focus search field after Hero animation completes
+    // Hero animation takes ~300ms, so we wait a bit longer
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _searchFocusNode.requestFocus();
+      Future.delayed(const Duration(milliseconds: 350), () {
+        if (mounted) {
+          _searchFocusNode.requestFocus();
+        }
+      });
     });
   }
 
@@ -45,7 +52,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final searchNotifier = ref.read(search.searchControllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor:
+          isDark ? AppColors.darkBackground : AppColors.lightBackground,
       body: SafeArea(
         child: Column(
           children: [
@@ -60,7 +68,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget _buildSearchBar(bool isDark) {
-    final inputStyle = isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
+    final inputStyle =
+        isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -81,7 +90,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     vertical: AppValues.padding_14,
                   ),
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.darkCardBackground : AppColors.lightSurface,
+                    color: isDark
+                        ? AppColors.darkCardBackground
+                        : AppColors.lightSurface,
                     borderRadius: BorderRadius.circular(AppValues.radius_12),
                   ),
                   child: Row(
@@ -89,8 +100,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       _searchIcon(isDark),
                       const SizedBox(width: AppValues.margin_12),
                       _searchTextField(inputStyle, isDark),
-                      if (_searchController.text.isNotEmpty)
-                        _clearButton(isDark),
+                      ValueListenableBuilder<TextEditingValue>(
+                        valueListenable: _searchController,
+                        builder: (context, value, child) {
+                          return value.text.isNotEmpty
+                              ? _clearButton(isDark)
+                              : const SizedBox.shrink();
+                        },
+                      ),
                       _recorderIcon(isDark),
                     ],
                   ),
@@ -117,7 +134,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     return Icon(
       Icons.search,
       size: AppValues.iconSize_20,
-      color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+      color:
+          isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
     );
   }
 
@@ -128,12 +146,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         focusNode: _searchFocusNode,
         style: inputStyle.copyWith(
           fontSize: AppValues.fontSize_15,
-          color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+          color:
+              isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
         ),
         decoration: _textFieldDecoration(inputStyle),
         onChanged: (value) {
-          ref.read(search.searchControllerProvider.notifier).onQueryChanged(value);
-          setState(() {});
+          ref
+              .read(search.searchControllerProvider.notifier)
+              .onQueryChanged(value);
         },
       ),
     );
@@ -143,7 +163,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     return Icon(
       Icons.mic_none,
       size: AppValues.iconSize_20,
-      color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+      color:
+          isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
     );
   }
 
@@ -151,7 +172,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     return IconButton(
       icon: Icon(
         Icons.clear,
-        color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+        color:
+            isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
         size: AppValues.iconSize_20,
       ),
       padding: EdgeInsets.zero,
@@ -159,7 +181,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       onPressed: () {
         _searchController.clear();
         ref.read(search.searchControllerProvider.notifier).onQueryChanged('');
-        setState(() {});
       },
     );
   }
@@ -196,7 +217,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       return _buildLoadingState(isDark);
     }
     if (searchState.errorMessage != null) {
-      return _buildErrorState(searchNotifier, isDark);
+      return _buildErrorState(
+          searchState.errorMessage!, searchNotifier, isDark);
     }
     if (searchState.results.isEmpty && searchState.hasSearched) {
       return _buildEmptyState(isDark);
@@ -212,27 +234,33 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     search.SearchController searchNotifier,
     bool isDark,
   ) {
-    final titleStyle = isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
-    final bodyStyle = isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
+    final titleStyle =
+        isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
+    final bodyStyle =
+        isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
 
     if (searchState.recentSearches.isEmpty) {
       return Center(
         child: Text(
           AppLocalizations.of(context)!.searchNoRecent,
           style: bodyStyle.copyWith(
-            color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+            color: isDark
+                ? AppColors.darkTextSecondary
+                : AppColors.lightTextSecondary,
           ),
         ),
       );
     }
 
     return ListView.builder(
+      key: const PageStorageKey<String>('recent_searches_list'),
       padding: const EdgeInsets.symmetric(vertical: AppValues.margin_8),
       itemCount: searchState.recentSearches.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppValues.margin_16),
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppValues.margin_16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -263,12 +291,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           onTap: () => _applyRecentSearch(query, searchNotifier),
           leading: Icon(
             Icons.history,
-            color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+            color: isDark
+                ? AppColors.darkTextSecondary
+                : AppColors.lightTextSecondary,
           ),
           title: Text(
             query,
             style: bodyStyle.copyWith(
-              color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+              color: isDark
+                  ? AppColors.darkTextPrimary
+                  : AppColors.lightTextPrimary,
             ),
           ),
         );
@@ -277,7 +309,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget _buildLoadingState(bool isDark) {
-    final bodyStyle = isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
+    final bodyStyle =
+        isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -287,7 +320,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           Text(
             AppLocalizations.of(context)!.searchingLabel,
             style: bodyStyle.copyWith(
-              color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+              color: isDark
+                  ? AppColors.darkTextSecondary
+                  : AppColors.lightTextSecondary,
             ),
           ),
         ],
@@ -296,8 +331,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget _buildEmptyState(bool isDark) {
-    final titleStyle = isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
-    final bodyStyle = isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
+    final titleStyle =
+        isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
+    final bodyStyle =
+        isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -305,7 +342,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           Icon(
             Icons.search_off,
             size: AppValues.iconLargeSize,
-            color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+            color: isDark
+                ? AppColors.darkTextSecondary
+                : AppColors.lightTextSecondary,
           ),
           const SizedBox(height: AppValues.margin_12),
           Text(
@@ -319,7 +358,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           Text(
             AppLocalizations.of(context)!.searchEmptySubtitle,
             style: bodyStyle.copyWith(
-              color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+              color: isDark
+                  ? AppColors.darkTextSecondary
+                  : AppColors.lightTextSecondary,
             ),
           ),
         ],
@@ -327,16 +368,22 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     );
   }
 
-  Widget _buildErrorState(search.SearchController searchNotifier, bool isDark) {
-    final titleStyle = isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
-    final bodyStyle = isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
+  Widget _buildErrorState(
+    String errorMessage,
+    search.SearchController searchNotifier,
+    bool isDark,
+  ) {
+    final titleStyle =
+        isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
+    final bodyStyle =
+        isDark ? AppTextStyles.bodyMediumDark : AppTextStyles.bodyMediumLight;
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppValues.margin_16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.error_outline,
               size: AppValues.iconLargeSize,
               color: AppColors.error,
@@ -351,10 +398,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
             const SizedBox(height: AppValues.margin_4),
             Text(
-              AppLocalizations.of(context)!.searchErrorSubtitle,
+              errorMessage,
               textAlign: TextAlign.center,
               style: bodyStyle.copyWith(
-                color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                color: isDark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.lightTextSecondary,
               ),
             ),
             const SizedBox(height: AppValues.margin_12),
@@ -370,6 +419,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Widget _buildResultsList(List<CompoundSearchResult> results, bool isDark) {
     return ListView.separated(
+      key: const PageStorageKey<String>('search_results_list'),
       padding: const EdgeInsets.symmetric(
         horizontal: AppValues.margin_16,
         vertical: AppValues.margin_8,
@@ -384,8 +434,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget _buildResultCard(CompoundSearchResult result, bool isDark) {
-    final titleStyle = isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
-    final bodyStyle = isDark ? AppTextStyles.bodySmallDark : AppTextStyles.bodySmallLight;
+    final titleStyle =
+        isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
+    final bodyStyle =
+        isDark ? AppTextStyles.bodySmallDark : AppTextStyles.bodySmallLight;
     final imageUrl = _structureImageUrl(result.cid);
 
     return InkWell(
@@ -397,7 +449,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           color: isDark ? AppColors.darkCardBackground : Colors.white,
           borderRadius: BorderRadius.circular(AppValues.radius_12),
           border: Border.all(
-            color: isDark ? AppColors.darkCardBackground : AppColors.lightBottomNavBorder,
+            color: isDark
+                ? AppColors.darkCardBackground
+                : AppColors.lightBottomNavBorder,
           ),
         ),
         child: Row(
@@ -411,14 +465,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     style: titleStyle.copyWith(
                       fontSize: AppValues.fontSize_16,
                       fontWeight: FontWeight.w600,
-                      color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                      color: isDark
+                          ? AppColors.darkTextPrimary
+                          : AppColors.lightTextPrimary,
                     ),
                   ),
                   const SizedBox(height: AppValues.margin_4),
                   Text(
                     '${AppLocalizations.of(context)!.compoundIdLabel}: ${result.cid}',
                     style: bodyStyle.copyWith(
-                      color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                      color: isDark
+                          ? AppColors.darkTextSecondary
+                          : AppColors.lightTextSecondary,
                     ),
                   ),
                   if (result.molecularFormula.isNotEmpty) ...[
@@ -426,8 +484,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     Text(
                       result.molecularFormula,
                       style: bodyStyle.copyWith(
-                        color:
-                            isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                        color: isDark
+                            ? AppColors.darkTextSecondary
+                            : AppColors.lightTextSecondary,
                       ),
                     ),
                   ],
@@ -443,20 +502,25 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 height: AppValues.iconSize_60,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
-                  color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+                  color:
+                      isDark ? AppColors.darkSurface : AppColors.lightSurface,
                   alignment: Alignment.center,
                   child: const SizedBox(
                     width: AppValues.iconSize_20,
                     height: AppValues.iconSize_20,
-                    child: CircularProgressIndicator(strokeWidth: AppValues.margin_2),
+                    child: CircularProgressIndicator(
+                        strokeWidth: AppValues.margin_2),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
-                  color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+                  color:
+                      isDark ? AppColors.darkSurface : AppColors.lightSurface,
                   alignment: Alignment.center,
                   child: Icon(
                     Icons.broken_image_outlined,
-                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.lightTextSecondary,
                   ),
                 ),
               ),
@@ -473,7 +537,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     return '${ApiEndPoints.pubChemBaseUrl}$path';
   }
 
-  void _applyRecentSearch(String query, search.SearchController searchNotifier) {
+  void _applyRecentSearch(
+      String query, search.SearchController searchNotifier) {
     _searchController.text = query;
     _searchController.selection = TextSelection.fromPosition(
       TextPosition(offset: query.length),

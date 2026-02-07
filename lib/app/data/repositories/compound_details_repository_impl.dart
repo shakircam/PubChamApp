@@ -1,6 +1,7 @@
 import 'package:pubchem/app/data/datasources/remote/pubchem/pubchem_remote_source.dart';
 import 'package:pubchem/app/domain/models/compound_details.dart';
 import 'package:pubchem/app/domain/repositories/compound_details_repository.dart';
+import 'package:pubchem/app/network/exceptions/data_validation_exception.dart';
 
 class CompoundDetailsRepositoryImpl implements CompoundDetailsRepository {
   final PubChemRemoteSource remoteSource;
@@ -14,7 +15,9 @@ class CompoundDetailsRepositoryImpl implements CompoundDetailsRepository {
     final property = detailsResponse.propertyTable?.properties.firstOrNull;
 
     if (property == null) {
-      throw Exception('No compound data found for CID: $cid');
+      throw DataValidationException(
+        'No compound data available. The compound may not exist or data is incomplete.',
+      );
     }
 
     // Fetch description (may fail, so we handle it gracefully)

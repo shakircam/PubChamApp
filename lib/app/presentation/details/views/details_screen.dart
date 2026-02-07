@@ -7,6 +7,7 @@ import 'package:pubchem/app/core/values/app_text_styles.dart';
 import 'package:pubchem/app/core/values/app_values.dart';
 import 'package:pubchem/app/domain/models/compound_details.dart';
 import 'package:pubchem/app/presentation/details/controllers/details_controller.dart';
+import 'package:pubchem/app/presentation/details/models/details_state.dart';
 import 'package:pubchem/l10n/app_localizations.dart';
 
 class DetailsScreen extends ConsumerStatefulWidget {
@@ -131,6 +132,14 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
   }
 
   Widget _build2DStructureSection(bool isDark, String imageUrl) {
+    // Responsive height: 35% of screen height, min 250, max 400
+    final imageHeight = AppValues.getResponsiveHeight(
+      context,
+      percentage: 0.35,
+      minHeight: 250,
+      maxHeight: 400,
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppValues.margin_16),
       child: Column(
@@ -138,7 +147,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
         children: [
           Container(
             width: double.infinity,
-            height: 280,
+            height: imageHeight,
             decoration: BoxDecoration(
               color: AppColors.lightBackground,
               borderRadius: BorderRadius.circular(AppValues.radius_12),
@@ -191,7 +200,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                       vertical: AppValues.padding_4,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(0.2),
+                      color: Colors.green.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(AppValues.radius_4),
                     ),
                     child: Text(

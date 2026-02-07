@@ -79,10 +79,10 @@ class _FeaturedCompoundsPageState extends ConsumerState<FeaturedCompoundsPage> {
             SliverPadding(
               padding: const EdgeInsets.all(AppValues.margin_16),
               sliver: SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: AppValues.compoundGridColumns,
-                  crossAxisSpacing: AppValues.margin_12,
-                  mainAxisSpacing: AppValues.margin_12,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: AppValues.getResponsiveGridColumns(context),
+                  crossAxisSpacing: AppValues.getResponsiveGridSpacing(context),
+                  mainAxisSpacing: AppValues.getResponsiveGridSpacing(context),
                   childAspectRatio: AppValues.compoundGridAspectRatio,
                 ),
                 delegate: SliverChildBuilderDelegate(

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pubchem/app/core/values/app_colors.dart';
@@ -17,7 +17,7 @@ class CompoundCard extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final cardBgColor = isDark ? AppColors.darkCardBackground : Colors.white;
     final textColor = isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
-    final subTextColor = AppColors.primary;
+    const subTextColor = AppColors.primary;
     final titleStyle = isDark ? AppTextStyles.titleMediumDark : AppTextStyles.titleMediumLight;
     final subtitleStyle = isDark ? AppTextStyles.bodySmallDark : AppTextStyles.bodySmallLight;
 
@@ -26,30 +26,22 @@ class CompoundCard extends StatelessWidget {
         context.push('/details', extra: compound);
       },
       child: Container(
-        decoration: BoxDecoration(
-          color: cardBgColor,
-          borderRadius: BorderRadius.circular(AppValues.radius),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(AppValues.cardShadowOpacity),
-              blurRadius: AppValues.margin_8,
-              offset: const Offset(AppValues.margin_zero, AppValues.margin_2),
-            ),
-          ],
-        ),
+        decoration: _cardDecoration(cardBgColor),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _compoundImage(isDark),
-            Padding(
-              padding: const EdgeInsets.all(AppValues.padding_12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _compoundName(titleStyle, textColor),
-                  const SizedBox(height: AppValues.margin_4),
-                  _molecularWeight(context,subtitleStyle, subTextColor),
-                ],
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(AppValues.padding_12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _compoundName(titleStyle, textColor),
+                    const SizedBox(height: AppValues.margin_4),
+                    _molecularWeight(context,subtitleStyle, subTextColor),
+                  ],
+                ),
               ),
             ),
           ],
@@ -63,35 +55,27 @@ class CompoundCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(AppValues.margin_12),
         decoration: BoxDecoration(
-          color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+          color: isDark ? AppColors.darkSurface : Colors.white,
           borderRadius: BorderRadius.circular(AppValues.radius_12),
         ),
         child: Center(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(AppValues.radius_12),
-            child: Image.network(
-              'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${compound.cid}/record/PNG',
+            child: CachedNetworkImage(
+              imageUrl: 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${compound.cid}/record/PNG',
               fit: BoxFit.contain,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Center(
-                  child: Icon(
-                    Icons.science_outlined,
-                    size: AppValues.iconSize_40,
-                    color: isDark ? Colors.white24 : Colors.black26,
-                  ),
-                );
-              },
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: AppValues.margin_2,
+                ),
+              ),
+              errorWidget: (context, url, error) => Center(
+                child: Icon(
+                  Icons.science_outlined,
+                  size: AppValues.iconSize_40,
+                  color: isDark ? Colors.white24 : Colors.black26,
+                ),
+              ),
             ),
           ),
         ),
@@ -118,4 +102,16 @@ class CompoundCard extends StatelessWidget {
       ),
     );
   }
+
+  Decoration? _cardDecoration(Color cardBgColor) => BoxDecoration(
+        color: cardBgColor,
+        borderRadius: BorderRadius.circular(AppValues.radius),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(AppValues.cardShadowOpacity),
+            blurRadius: AppValues.margin_8,
+            offset: const Offset(AppValues.margin_zero, AppValues.margin_2),
+          ),
+        ],
+      );
 }

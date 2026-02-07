@@ -1,38 +1,60 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'exceptions/api_exception.dart';
 import 'exceptions/app_exception.dart';
+import 'exceptions/data_validation_exception.dart';
 import 'exceptions/network_exception.dart';
 import 'exceptions/not_found_exception.dart';
 import 'exceptions/service_unavailable_exception.dart';
+import 'exceptions/timeout_exception.dart';
 
 Exception handleError(String error) {
   //final logger = BuildConfig.instance.config.logger;
   // logger.e("Generic exception: $error");
 
+  // Don't expose technical error messages to users
+  if (_isTechnicalError(error)) {
+    return AppException(message: "An unexpected error occurred. Please try again.");
+  }
+
   return AppException(message: error);
 }
 
-Exception handleDioError(DioError dioError) {
+/// Checks if error message contains technical details
+bool _isTechnicalError(String message) {
+  final lowerMessage = message.toLowerCase();
+  final technicalTerms = [
+    'exception',
+    'stack trace',
+    'null pointer',
+    'cast error',
+    'type error',
+    'assertion',
+    'undefined',
+    'failed assertion',
+  ];
+
+  return technicalTerms.any((term) => lowerMessage.contains(term));
+}
+
+Exception handleDioError(DioException dioError) {
   switch (dioError.type) {
     case DioExceptionType.cancel:
-      return AppException(message: "Request to API server was cancelled 🙂");
+      return AppException(message: "Request was cancelled. Please try again.");
     case DioExceptionType.connectionTimeout:
-      return AppException(message: "Connection timeout with API server 🙂");
+      return TimeoutException("Connection timed out. Please check your internet and try again.");
     case DioExceptionType.unknown:
-      return NetworkException("There is no internet connection 🙂");
+      return NetworkException("No internet connection. Please check your network and try again.");
     case DioExceptionType.receiveTimeout:
-      return TimeoutException(
-          "Receive timeout in connection with API server 🙂");
+      return TimeoutException("The request took too long. Please try again.");
     case DioExceptionType.sendTimeout:
-      return TimeoutException("Send timeout in connection with API server 🙂");
+      return TimeoutException("Failed to send request. Please try again.");
     case DioExceptionType.badResponse:
       return _parseDioErrorResponse(dioError);
     case DioExceptionType.badCertificate:
-      return AppException(message: "Invalid certificate");
+      return AppException(message: "Security certificate error. Please try again later.");
     case DioExceptionType.connectionError:
-      return NetworkException("There is no internet connection");
+      return NetworkException("No internet connection. Please check your network and try again.");
   }
 
 }

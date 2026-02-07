@@ -1,46 +1,11 @@
 import 'dart:async';
+import 'package:pubchem/app/presentation/search/models/search_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:pubchem/app/core/values/app_values.dart';
 import 'package:pubchem/app/core/provider/providers.dart';
 import 'package:pubchem/app/domain/models/compound_search_result.dart';
 
 part 'search_controller.g.dart';
-
-class SearchState {
-  final String query;
-  final bool isLoading;
-  final String? errorMessage;
-  final List<CompoundSearchResult> results;
-  final List<String> recentSearches;
-  final bool hasSearched;
-
-  const SearchState({
-    this.query = '',
-    this.isLoading = false,
-    this.errorMessage,
-    this.results = const [],
-    this.recentSearches = const [],
-    this.hasSearched = false,
-  });
-
-  SearchState copyWith({
-    String? query,
-    bool? isLoading,
-    String? errorMessage,
-    List<CompoundSearchResult>? results,
-    List<String>? recentSearches,
-    bool? hasSearched,
-  }) {
-    return SearchState(
-      query: query ?? this.query,
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage,
-      results: results ?? this.results,
-      recentSearches: recentSearches ?? this.recentSearches,
-      hasSearched: hasSearched ?? this.hasSearched,
-    );
-  }
-}
 
 @riverpod
 class SearchController extends _$SearchController {
@@ -113,10 +78,7 @@ class SearchController extends _$SearchController {
         await ref.read(saveRecentSearchUseCaseProvider).call(query);
         await _loadRecentSearches();
       }
-    } catch (error, stackTrace) {
-      // Log the error for debugging
-      print('Search error: $error');
-      print('Stack trace: $stackTrace');
+    } catch (error) {
       state = state.copyWith(
         isLoading: false,
         results: [],
