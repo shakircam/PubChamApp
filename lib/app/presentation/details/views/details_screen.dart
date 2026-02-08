@@ -8,6 +8,7 @@ import 'package:pubchem/app/core/values/app_values.dart';
 import 'package:pubchem/app/domain/models/compound_details.dart';
 import 'package:pubchem/app/presentation/details/controllers/details_controller.dart';
 import 'package:pubchem/app/presentation/details/models/details_state.dart';
+import 'package:pubchem/app/utils/context_ext.dart';
 import 'package:pubchem/l10n/app_localizations.dart';
 
 class DetailsScreen extends ConsumerStatefulWidget {
@@ -24,7 +25,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
     final detailsState = ref.watch(detailsControllerProvider(widget.cid));
 
     return Scaffold(
@@ -66,8 +67,6 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
           const SizedBox(height: AppValues.margin_24),
           _buildPhysicalPropertiesSection(isDark),
           const SizedBox(height: AppValues.margin_24),
-          _buildActionButtons(isDark),
-          const SizedBox(height: AppValues.margin_32),
         ],
       ),
     );

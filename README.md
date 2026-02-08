@@ -26,6 +26,35 @@
 
 ---
 
+## 📸 Screenshots
+
+### Light Theme
+
+<p align="center">
+  <img src="images/Splash.png" width="200" alt="Splash Screen" style="margin: 10px"/>
+  <img src="images/Home.png" width="200" alt="Home Screen" style="margin: 10px"/>
+  <img src="images/Details.png" width="200" alt="Details Screen" style="margin: 10px"/>
+</p>
+<p align="center">
+  <img src="images/Features.png" width="200" alt="Features Screen" style="margin: 10px"/>
+  <img src="images/search.png" width="200" alt="Search Screen" style="margin: 10px"/>
+  <img src="images/More.png" width="200" alt="More Screen" style="margin: 10px"/>
+</p>
+
+### Dark Theme
+
+<p align="center">
+  <img src="images/Home_dark.png" width="200" alt="Home Screen Dark" style="margin: 10px"/>
+  <img src="images/Details_dark.png" width="200" alt="Details Screen Dark" style="margin: 10px"/>
+  <img src="images/Search_dark.png" width="200" alt="Search Screen Dark" style="margin: 10px"/>
+</p>
+<p align="center">
+  <img src="images/Features_dark.png" width="200" alt="Features Screen Dark" style="margin: 10px"/>
+  <img src="images/More_dark.png" width="200" alt="More Screen Dark" style="margin: 10px"/>
+</p>
+
+---
+
 ## 🏗️ Architecture
 
 This project follows **Clean Architecture** principles combined with **feature-based modularization** to ensure scalability, maintainability, and testability.
